@@ -1,0 +1,90 @@
+public  List<Category> categoryList();
+
+public List<Category> categoryList() //Model b
+	{
+		
+		Session mySession = sessionFactory.getCurrentSession();
+		System.out.println("functionality");
+		return mySession.createCriteria(Client.class).list();
+		
+		
+	}
+
+
+
+<select name="department"><option value="Blank"></option>
+<option value="All">All</option>
+<c:forEach items="${catlist1}" var="cat">
+  <option value="${cat.clientid}">${cat.clientname}</option>
+</c:forEach>
+</select>
+
+
+
+
+
+
+
+
+
+
+
+@RequestMapping(value="/dispApp",method=RequestMethod.POST)
+	public List<Application> register(String department) {
+		String st=department;
+		List<Application> dispApp = null;
+		System.out.println(department);
+		System.out.println("this is st "+st);
+		if(department.equals("All")){
+			 dispApp =reviewSer.getAllApp();
+			System.out.println("this is all "+dispApp);
+			httpSession.setAttribute("disApp",dispApp);
+			System.out.println("this is all "+reviewSer.getAllApp());
+		}else if(department.equals("Blank")){
+			System.out.println("Choose a value");
+		}
+		else{
+		int catId=(Integer.parseInt(department));
+		 dispApp = userSer.dispApplication(catId);
+		httpSession.setAttribute("disApp", dispApp);
+		httpSession.setAttribute("catval", department);
+		httpSession.setAttribute("catlist1",reviewSer.categoryList());
+		System.out.println(department);
+		System.out.println(dispApp);}
+		return dispApp;
+	}
+
+
+
+
+
+
+
+
+
+getAllApp()
+	
+public List<Application> getAllApp();
+
+
+
+public List<Application> getAllApp() {
+		// TODO Auto-generated method stub
+		Session mySession = sessionFactory.getCurrentSession();
+		return mySession.createCriteria(Application.class).list();
+	}	
+
+
+
+
+dispApplication(catId);
+public ArrayList<Application> dispApplication(int catid);
+
+
+public ArrayList<Application> dispApplication(int catid) {
+		System.out.println("inside daoimpl"+catid);
+		ArrayList<Application> list=(ArrayList<Application>) sessionFactory.getCurrentSession().createQuery("select c from Application c where c.aclientid= :catid").setParameter("catid", catid).list();
+		
+		System.out.println(list);
+		return list;
+	}
