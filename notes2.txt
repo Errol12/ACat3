@@ -1,1 +1,4 @@
 http://stackoverflow.com/questions/8954426/spring-mvc-multiple-submit-button-to-a-form
+
+http://learnfromexamples.com/jquery-datatable-in-spring-mvc-application/
+https://www.codeproject.com/Articles/359750/jQuery-DataTables-in-Java-Web-Applications
